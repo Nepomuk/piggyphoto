@@ -33,7 +33,7 @@ if libgphoto2dll is None:
     print("libgphoto2 library not found")
     sys.exit(-1)
 
-print("Loading libgphoto2 DLL: " + libgphoto2dll)
+# print("Loading libgphoto2 DLL: " + libgphoto2dll)
 gp = ctypes.CDLL(libgphoto2dll)
 # Needed to ensure context memory address is not truncated to 32 bits
 gp.gp_context_new.restype = ctypes.c_void_p
@@ -457,7 +457,7 @@ class CameraFile(object):
     def to_pixbuf(self):
         mimetype = ctypes.c_char_p()
         gp.gp_file_get_mime_type(self._cf, ctypes.byref(mimetype))
-        print(ctypes.string_at(mimetype))
+        # print(ctypes.string_at(mimetype))
 
         """Returns data for GdkPixbuf.PixbufLoader.write()."""
         data = ctypes.c_char_p()
@@ -465,7 +465,7 @@ class CameraFile(object):
         gp.gp_file_get_data_and_size(self._cf, ctypes.byref(data),
                                      ctypes.byref(size))
 
-        print(size.value)
+        # print(size.value)
         return ctypes.string_at(data, size.value)
 
     def __dealoc__(self, filename):
